@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -57,6 +59,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ),
                       child: Text(
                         'HH',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     NumberPicker.integer(
@@ -80,6 +86,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ),
                       child: Text(
                         'MM',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     NumberPicker.integer(
@@ -103,6 +113,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ),
                       child: Text(
                         'SS',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     NumberPicker.integer(
@@ -121,11 +135,57 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ),
           Expanded(
             flex: 1,
-            child: Text('1'),
+            child: Text(
+              '1',
+              style: TextStyle(
+                fontSize: 35.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text('3'),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 10.0,
+                  ),
+                  color: Colors.green[300],
+                  child: Text(
+                    'Start',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 10.0,
+                  ),
+                  color: Colors.red[300],
+                  child: Text(
+                    'Stop',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
