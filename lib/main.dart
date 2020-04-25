@@ -60,10 +60,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           t.cancel();
           checkTimer = true;
           timeToDisplay = "";
+        } else if (timeForTimer < 60) {
+          timeToDisplay = timeForTimer.toString();
+          timeForTimer = timeForTimer - 1;
+        } else if (timeForTimer < 3600) {
+          int m = timeForTimer ~/ 60;
+          int s = timeForTimer - (60 * m);
+          timeToDisplay = m.toString() + ':' + s.toString();
+          timeForTimer = timeForTimer - 1;
         } else {
+          int h = timeForTimer ~/ 3600;
+          int t = timeForTimer - (3600 * h);
+          int m = t ~/ 60;
+          int s = t - (60 * m);
+          timeToDisplay =
+              h.toString() + ':' + m.toString() + ':' + s.toString();
           timeForTimer = timeForTimer - 1;
         }
-        timeToDisplay = timeForTimer.toString();
       });
     });
   }
