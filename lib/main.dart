@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -29,6 +30,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int hour = 0;
   int minute = 0;
   int second = 0;
+  bool started = true;
+  bool stopped = true;
+  int timeForTimer = 0;
+  String timeToDisplay = '';
 
   @override
   void initState() {
@@ -38,6 +43,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
     super.initState();
   }
+
+  void startHandler() {
+    timeForTimer = ((hour * 60 * 60) + (minute * 60) + second);
+    Timer.periodic(
+        Duration(
+          seconds: 1,
+        ), (Timer t) {
+      setState(() {
+        if (timeForTimer < 1) {
+          t.cancel();
+        } else {
+          timeForTimer = timeForTimer - 1;
+        }
+        timeToDisplay = timeForTimer.toString();
+      });
+    });
+  }
+
+  void stopHandler() {}
 
   Widget timer() {
     return Container(
@@ -71,7 +95,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       maxValue: 23,
                       listViewWidth: 60.0,
                       onChanged: (val) {
-                        hour = val;
+                        setState(() {
+                          hour = val;
+                        });
                       },
                     ),
                   ],
@@ -98,7 +124,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       maxValue: 23,
                       listViewWidth: 60.0,
                       onChanged: (val) {
-                        minute = val;
+                        setState(() {
+                          minute = val;
+                        });
                       },
                     ),
                   ],
@@ -125,7 +153,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       maxValue: 23,
                       listViewWidth: 60.0,
                       onChanged: (val) {
-                        second = val;
+                        setState(() {
+                          second = val;
+                        });
                       },
                     ),
                   ],
@@ -136,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Expanded(
             flex: 1,
             child: Text(
-              '1',
+              timeToDisplay,
               style: TextStyle(
                 fontSize: 35.0,
                 fontWeight: FontWeight.w600,
@@ -149,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: started ? startHandler : null,
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
                     vertical: 10.0,
@@ -167,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: stopped ? null : stopHandler,
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
                     vertical: 10.0,
