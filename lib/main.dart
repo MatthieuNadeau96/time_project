@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   bool stopped = true;
   int timeForTimer = 0;
   String timeToDisplay = '';
+  bool checkTimer = true;
 
   @override
   void initState() {
@@ -55,8 +56,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           seconds: 1,
         ), (Timer t) {
       setState(() {
-        if (timeForTimer < 1) {
+        if (timeForTimer < 1 || !checkTimer) {
           t.cancel();
+          checkTimer = true;
+          timeToDisplay = "";
         } else {
           timeForTimer = timeForTimer - 1;
         }
@@ -65,7 +68,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
-  void stopHandler() {}
+  void stopHandler() {
+    setState(() {
+      started = true;
+      stopped = false;
+      checkTimer = false;
+    });
+  }
 
   Widget timer() {
     return Container(
