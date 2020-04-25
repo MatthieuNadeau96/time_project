@@ -45,6 +45,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void startHandler() {
+    setState(() {
+      started = false;
+      stopped = false;
+    });
     timeForTimer = ((hour * 60 * 60) + (minute * 60) + second);
     Timer.periodic(
         Duration(
