@@ -58,8 +58,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       setState(() {
         if (timeForTimer < 1 || !checkTimer) {
           t.cancel();
-          checkTimer = true;
-          timeToDisplay = "";
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage(),
+              ));
         } else if (timeForTimer < 60) {
           timeToDisplay = timeForTimer.toString();
           timeForTimer = timeForTimer - 1;
